@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -21,6 +22,7 @@ import model.User;
 public class FormJPanel extends javax.swing.JPanel {
 
     JPanel bottomPanel2;
+    ImageIcon picture;
     /**
      * Creates new form NewJPanel1
      */
@@ -63,6 +65,7 @@ public class FormJPanel extends javax.swing.JPanel {
         photoButton = new javax.swing.JButton();
         imageLabel1 = new javax.swing.JLabel();
         imgLabel1 = new javax.swing.JLabel();
+        picLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(51, 102, 255));
 
@@ -142,25 +145,28 @@ public class FormJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(genderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(picLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
                             .addComponent(phoneTextField)
                             .addComponent(emailTextField)
                             .addComponent(nameTextField)
                             .addComponent(lastNameTextField)
                             .addComponent(ageTextField)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(submitButton)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(photoButton)
-                                        .addGap(96, 96, 96)
-                                        .addComponent(imgLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(submitButton)
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(80, 80, 80))))
+                        .addGap(80, 80, 80))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(genderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(photoButton)
+                                .addGap(96, 96, 96)
+                                .addComponent(imgLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,16 +202,17 @@ public class FormJPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(hobbiesLabel)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(photoButton)
-                            .addComponent(imageLabel1))
-                        .addGap(70, 70, 70))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(imgLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(imgLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(photoButton)
+                    .addComponent(imageLabel1))
+                .addGap(1, 1, 1)
+                .addComponent(picLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(submitButton)
                 .addContainerGap())
         );
@@ -227,6 +234,7 @@ public class FormJPanel extends javax.swing.JPanel {
             userObject.setHobby(this.hobbiesTextArea.getText());
             userObject.setGender(this.genderComboBox.getSelectedItem().toString());
             userObject.setAge(Integer.parseInt(this.ageTextField.getText()));
+            userObject.setPicture(this.picture);
 
             System.out.println(userObject.getName());
             System.out.println(userObject.getLastname());
@@ -251,7 +259,7 @@ public class FormJPanel extends javax.swing.JPanel {
             }else if(userObject.getHobby().isBlank()){
                 JOptionPane.showMessageDialog(this,"Please enter hobbies","oops",HEIGHT);
             }else{
-                JOptionPane.showMessageDialog(this,"SUCCESSFULY ADDAED"+ userObject.getName() +"Age" + userObject.getAge() + "Gender" + userObject.getGender()+ "Hobbies" + userObject.getHobby(),"Success",HEIGHT);
+                JOptionPane.showMessageDialog(this,"SUCCESSFULY ADDAED"+ userObject.getName() +"Age" + userObject.getAge() + "Gender" + userObject.getGender()+ "Hobbies" + userObject.getHobby(),"Success",HEIGHT,picture);
               ViewJPanel viewJPanelObject = new ViewJPanel(userObject);
               this.bottomPanel2.add(viewJPanelObject);
               CardLayout layout =(CardLayout) this.bottomPanel2.getLayout();
@@ -271,10 +279,11 @@ public class FormJPanel extends javax.swing.JPanel {
     if (file.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
     try {
     BufferedImage img = ImageIO.read(file.getSelectedFile());
-    Image edited_image = img.getScaledInstance(60, 80,
-    Image.SCALE_SMOOTH);
+    Image edited_image = img.getScaledInstance(60, 80,Image.SCALE_SMOOTH);
     if (edited_image != null) {
-    imgLabel1.setText(file.getSelectedFile().getAbsolutePath());
+   // picLabel1.setText(file.getSelectedFile().getAbsolutePath());
+    this.picture = new ImageIcon(edited_image);
+    picLabel1.setIcon(picture);
     //this.userInfo.setPic(new ImageIcon(edited_image));
     }
     }catch(IOException ex) {
@@ -304,6 +313,7 @@ public class FormJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JTextField phoneTextField;
     private javax.swing.JButton photoButton;
+    private javax.swing.JLabel picLabel1;
     private javax.swing.JButton submitButton;
     private javax.swing.JLabel userLabel;
     // End of variables declaration//GEN-END:variables

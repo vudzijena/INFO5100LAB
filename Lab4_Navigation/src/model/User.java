@@ -4,6 +4,8 @@
  */
 package model;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author User
@@ -16,7 +18,18 @@ public class User {
      private String email;
      private int age;
      private String hobby;
+     private ImageIcon picture;
 
+    public ImageIcon getPicture() {
+        return picture;
+    }
+
+    public void setPicture(ImageIcon picture) {
+        this.picture = picture;
+    }
+
+     
+     
     public String getName() {
         return name;
     }
