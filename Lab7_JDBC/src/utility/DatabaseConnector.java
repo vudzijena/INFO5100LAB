@@ -15,7 +15,7 @@ import model.User;
 public class DatabaseConnector {
     
     // DB_URL = "jdbc:<database>://ip_address:port/database_name";
-    static final String DB_URL = "jdbc:mysql://localhost:3306/customerdb";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/userdb";
     static final String DB_USERNAME = "root";
     static final String DB_PASSWORD = "my-secret-pw";
     
@@ -27,15 +27,16 @@ public class DatabaseConnector {
     
     // C - Create: Inserting data into the database
     public static void addUser(User u1) throws SQLException{
-        String query = "INSERT INTO student(name, age, gender, hobby) VALUES (?, ?, ?, ?) ";
+        String query = "INSERT INTO student(name, lastname, gender, age, hobby) VALUES (?, ?, ?, ?, ?)";
         try{
             // Create a connection
             Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, u1.getName());
-            stmt.setInt(2, u1.getAge());
-            stmt.setString(3, u1.getgender());            
-            stmt.setString(4, u1.getHobby());
+            stmt.setString(2, u1.getLastname());
+            stmt.setString(3, u1.getGender());            
+            stmt.setInt(4, u1.getAge());
+            stmt.setString(5, u1.getHobby());
             
             // After this query will look like:
             // "INSERT INTO patient(first_name, age, college, hobbies) VALUES ('Rish', 28, 'COE', 'Football, guitar') "
@@ -65,8 +66,8 @@ public class DatabaseConnector {
                 User u1 = new User();
                 u1.setUserId(rs.getInt("student_id"));
                 u1.setName(rs.getString("name"));
-             u1.setLastName(rs.getString("lastname"));
-                u1.setgender(rs.getString("gender"));
+                u1.setLastname(rs.getString("lastname"));
+                u1.setGender(rs.getString("gender"));
                 u1.setAge(rs.getInt("age"));
                 u1.setHobby(rs.getString("hobby"));
                 users.add(u1);
@@ -84,16 +85,17 @@ public class DatabaseConnector {
     
     // U - Update: Changing a value in the database
     public static void updateUser(User oldUser, User updatedUser){
-            String query = "UPDATE student SET name = ?, gender = ?, age = ?, hobby = ? WHERE student_id = ? ";
+            String query = "UPDATE student SET name = ?, lastname = ?, gender = ?, age = ?, hobby = ? WHERE student_id = ? ";
             // Update the query
         try{
             Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, updatedUser.getName());
-            stmt.setString(2, updatedUser.getgender());
-            stmt.setInt(3, updatedUser.getAge());
-            stmt.setString(4, updatedUser.getHobby());
-            stmt.setInt(5, oldUser.getUserId());
+            stmt.setString(2, updatedUser.getLastname());
+            stmt.setString(3, updatedUser.getGender());
+            stmt.setInt(4, updatedUser.getAge());
+            stmt.setString(5, updatedUser.getHobby());
+            stmt.setInt(6, oldUser.getUserId());
             int rows = stmt.executeUpdate();
             System.out.println("Rows updated: "+rows);
             conn.close();
